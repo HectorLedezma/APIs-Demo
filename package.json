@@ -1,0 +1,28 @@
+{
+  "name": "api-node",
+  "version": "1.0.0",
+  "description": "Demostracion de API en Node JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HectorLedezma/Node-Api-Demo.git"
+  },
+  "keywords": [
+    "ES"
+  ],
+  "author": "Hector Ledezma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HectorLedezma/Node-Api-Demo/issues"
+  },
+  "homepage": "https://github.com/HectorLedezma/Node-Api-Demo#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
+  }
+}
