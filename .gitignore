@@ -2,7 +2,7 @@
 *.log
 *.pot
 *.pyc
-DjangoDemo/__pycache__
+__pycache__
 db.sqlite3
 media
 
