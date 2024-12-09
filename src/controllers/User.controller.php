@@ -24,11 +24,11 @@
         }
 
         public static function getOneUser(MySQLConnection $conn, $body){
-            //echo $body;
             $conn_OK = $conn->getConnection();
-            $query = "SELECT * FROM `user` WHERE `nick_name` = '".$body['nick_name']."' AND `password` = '".$body['password']."'";
+            $query = "SELECT * FROM `user` 
+                        WHERE `nick_name` = '".$body['nick_name']."' 
+                        AND `password` = '".$body['password']."'";
             $prexe = $conn_OK->prepare($query);
-
             try {
                 if($prexe->execute()){
                     $resultados = $prexe->fetchAll(PDO::FETCH_ASSOC);
@@ -42,11 +42,7 @@
                 }
             } catch (\Throwable $th) {
                 header('HTTP/1.1 500 Internal Server Error');
-
-                echo json_encode([
-                    "error" => "Error interno del servidor.",
-                    "query" => $query
-                ]);
+                echo json_encode(["error" => "Error interno del servidor."]);
             }
         }
 
