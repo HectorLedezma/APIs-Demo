@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 public class MySQLConnection(){
@@ -28,11 +29,10 @@ public class MySQLConnection(){
     }
 
 
-    public MySqlConnection Connect(){
-        try
-        {
+    public async Task<MySqlConnection> Connect(){
+        try{
             conn.ConnectionString = ConnectionString;
-            conn.OpenAsync();
+            await conn.OpenAsync();
         }
         catch (MySqlException e)
         {
@@ -42,10 +42,10 @@ public class MySQLConnection(){
         return conn;
     }
 
-    public void Disconnect(MySqlConnection conn){
+    public async Task Disconnect(MySqlConnection conn){
         try
         {
-            conn.CloseAsync();
+            await conn.CloseAsync();
         }
         catch (MySqlException)
         {
