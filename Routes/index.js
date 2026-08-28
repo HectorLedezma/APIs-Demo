@@ -1,10 +1,9 @@
 const express = require('express');
-const {GetRequest, PostRequest, PutRequest} = require("../Controllers")
+const {SendImage} = require("../Controllers")
 
 const router = express.Router();
 
-router.get("/get-request",GetRequest);
-router.post("/post-request",PostRequest);
-router.put("/put-request",PutRequest)
+router.post("/send-image",SendImage);
+
 
 module.exports = router;

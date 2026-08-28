@@ -4,7 +4,7 @@
   "description": "Demostracion de API en Node JS",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "start": "cls && nodemon index.js"
   },
   "repository": {
     "type": "git",
