@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const crypto = require('crypto');
 
 const SendImage = async (req,res) =>{
 
@@ -163,6 +162,69 @@ const SendImage = async (req,res) =>{
     }
 }
 
+const GetEnviroment = async (req,res) =>{
+    const secretKey = process.env.QbizAPIToken;
+    const receivedHash = req.headers['x-secret-key'];
+
+    //console.log(secretKey,receivedHash);
+
+    if (!secretKey || typeof receivedHash !== 'string') {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const expectedHash = crypto
+        .createHash('sha256')
+        .update(secretKey, 'utf8')
+        .digest('hex');
+
+    const expected = Buffer.from(expectedHash, 'hex');
+    const received = Buffer.from(receivedHash.trim().toLowerCase(), 'hex');
+
+    console.log(expectedHash,receivedHash);
+
+    if (
+        received.length !== expected.length ||
+        !crypto.timingSafeEqual(received, expected)
+    ) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    // acciones con credencial correcta
+
+    
+    return res.status(200).json({ received: true, message: req.body });
+}
+
+const ReciveMessage = async (req,res) =>{
+    const secretKey = process.env.QbizAPIToken;
+    const receivedHash = req.headers['x-secret-key'];
+
+    if (!secretKey || typeof receivedHash !== 'string') {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const expectedHash = crypto
+        .createHash('sha256')
+        .update(secretKey, 'utf8')
+        .digest('hex');
+
+    const expected = Buffer.from(expectedHash, 'hex');
+    const received = Buffer.from(receivedHash.trim().toLowerCase(), 'hex');
+
+    if (
+        received.length !== expected.length ||
+        !crypto.timingSafeEqual(received, expected)
+    ) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    // acciones con credencial correcta
+
+    return res.status(200).json({ received: true, message: req.body });
+}
+
+
+
 module.exports = {
-    SendImage
+    SendImage,
+    ReciveMessage,
+    GetEnviroment
 }
