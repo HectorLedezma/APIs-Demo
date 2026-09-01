@@ -1,5 +1,9 @@
 const crypto = require('crypto');
 
+const ping = async (req,res) =>{
+    return res.status(200).json({ received: true, message: req.body });
+}
+
 const SendImage = async (req,res) =>{
 
     const header = req.headers;
@@ -165,8 +169,8 @@ const SendImage = async (req,res) =>{
 const GetEnviroment = async (req,res) =>{
     const secretKey = process.env.QbizAPIToken;
     const receivedHash = req.headers['x-secret-key'];
-
-    //console.log(secretKey,receivedHash);
+    console.log(process.env);
+    console.log(req.headers);
 
     if (!secretKey || typeof receivedHash !== 'string') {
         return res.status(401).json({ error: 'Unauthorized' });
@@ -224,6 +228,7 @@ const ReciveMessage = async (req,res) =>{
 
 
 module.exports = {
+    ping,
     SendImage,
     ReciveMessage,
     GetEnviroment
